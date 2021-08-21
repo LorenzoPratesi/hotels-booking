@@ -6,7 +6,7 @@ public interface CompanyRepository {
 
 	public void addEmployee(Company company, Employee employee);
 
-	public Company findCompanyFor(String id);
+	public Company findCompanyFor(String employeeId);
 
 	public void deleteEmployee(Employee employee);
 

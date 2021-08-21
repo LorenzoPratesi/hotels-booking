@@ -31,17 +31,25 @@ public class Hotel {
 		this.name = name;
 	}
 
-	public void setRooms(RoomType roomType, int number) {
-		rooms.put(roomType, number);
-	}
-
 	public Map<RoomType, Integer> getRooms() {
 		return rooms;
 	}
+	
+	public void setRooms(RoomType roomType, int quantity) {
+		if (quantity <= 0) {
+			throw new IllegalArgumentException("Number of rooms cannot be less or equal to zero.");
+		}
+		rooms.put(roomType, quantity);
+	}
 
+	public int numberOfRoomsOf(RoomType roomType) {
+		return rooms.getOrDefault(roomType, 0);
+	}
+	
 	@Override
 	public String toString() {
 		return "Hotel [id=" + id + ", name=" + name + "]";
 	}
+
 
 }

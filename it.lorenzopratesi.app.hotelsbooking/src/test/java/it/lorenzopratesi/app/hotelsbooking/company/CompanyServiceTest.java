@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import it.lorenzopratesi.app.hotelsbooking.booking.BookingRepository;
 import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
 import it.lorenzopratesi.app.hotelsbooking.policy.BookingPolicyRepository;
 

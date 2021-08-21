@@ -1,5 +1,6 @@
 package it.lorenzopratesi.app.hotelsbooking.company;
 
+import it.lorenzopratesi.app.hotelsbooking.booking.BookingRepository;
 import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
 import it.lorenzopratesi.app.hotelsbooking.policy.BookingPolicyRepository;
 

@@ -24,4 +24,9 @@ public class HotelService {
 		hotelRepository.setRoom(existingProduct, number, roomType);
 	}
 
+	public Hotel findHotelBy(String hotelId) {
+		return hotelRepository.findHotelById(hotelId);
+	}
+
+
 }
