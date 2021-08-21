@@ -9,7 +9,7 @@ public class HotelService {
 	}
 
 	public void addHotel(Hotel hotel) {
-		Hotel existingProduct = hotelRepository.findById(hotel.getId());
+		Hotel existingProduct = hotelRepository.findHotelById(hotel.getId());
 		if (existingProduct != null) {
 			throw new RuntimeException("Hotel with id " + hotel.getId() + " already exists.");
 		}
@@ -17,7 +17,7 @@ public class HotelService {
 	}
 
 	public void setRoom(Hotel hotel, int number, RoomType roomType) {
-		Hotel existingProduct = hotelRepository.findById(hotel.getId());
+		Hotel existingProduct = hotelRepository.findHotelById(hotel.getId());
 		if (existingProduct == null) {
 			throw new RuntimeException("Hotel with id " + hotel.getId() + " does not exists.");
 		}

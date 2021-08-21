@@ -27,14 +27,15 @@ class HotelServiceTest {
 	private HotelService hotelService;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
+	
 
 	@Test
 	void testAddHotelWhenHotelWithSameIdDoesNotAlreadyExist() {
 		Hotel newHotel = new Hotel(testHotelId1, testHotelName1);
-		when(hotelRepository.findById(newHotel.getId())).thenReturn(null);
+		when(hotelRepository.findHotelById(newHotel.getId())).thenReturn(null);
 		hotelService.addHotel(newHotel);
 		verify(hotelRepository).addHotel(newHotel);
 	}
@@ -43,7 +44,7 @@ class HotelServiceTest {
 	void testAddHotelShouldThrowAnExeptionWhenHotelWithSameIdDoesAlreadyExist() {
 		Hotel existingHotel = new Hotel(testHotelId1, testHotelName1);
 		Hotel newHotel = new Hotel(testHotelId1, testHotelName2);
-		when(hotelRepository.findById(newHotel.getId())).thenReturn(existingHotel);
+		when(hotelRepository.findHotelById(newHotel.getId())).thenReturn(existingHotel);
 
 		RuntimeException e = assertThrows(RuntimeException.class, () -> hotelService.addHotel(newHotel));
 		assertEquals("Hotel with id 1 already exists.", e.getMessage());
@@ -53,7 +54,7 @@ class HotelServiceTest {
 	@Test
 	void testSetRoomShouldThrowAnExeptionIfHotelNotExists() {
 		Hotel hotel = new Hotel(testHotelId1, testHotelName2);
-		when(hotelRepository.findById(hotel.getId())).thenReturn(null);
+		when(hotelRepository.findHotelById(hotel.getId())).thenReturn(null);
 
 		int numberOfRooms = 1;
 
@@ -67,7 +68,7 @@ class HotelServiceTest {
 	void testSetRoomShouldInsertOneRoomOfTypeSingle() {
 		Hotel existingHotel = new Hotel(testHotelId1, testHotelName1);
 		Hotel hotel = new Hotel(testHotelId1, testHotelName1);
-		when(hotelRepository.findById(hotel.getId())).thenReturn(existingHotel);
+		when(hotelRepository.findHotelById(hotel.getId())).thenReturn(existingHotel);
 
 		int numberOfRooms = 1;
 		hotelService.setRoom(hotel, numberOfRooms, RoomType.SINGLE);
@@ -76,6 +77,27 @@ class HotelServiceTest {
 		updatedHotel.setRooms(RoomType.SINGLE, numberOfRooms);
 		verify(hotelRepository).setRoom(existingHotel, numberOfRooms, RoomType.SINGLE);
 	}
+	
+	@Test
+	void testSetRoomShouldUpdateOneRoomOfTypeSingle() {
+		Hotel existingHotel = new Hotel(testHotelId1, testHotelName1);
+		existingHotel.setRooms(RoomType.SINGLE, 1);
+		
+		Hotel hotel = new Hotel(testHotelId1, testHotelName1);
+		hotel.setRooms(RoomType.SINGLE, 1);
+		when(hotelRepository.findHotelById(hotel.getId())).thenReturn(existingHotel);
+
+		int numberOfRooms = 2;
+		hotelService.setRoom(hotel, numberOfRooms, RoomType.SINGLE);
+		
+		Hotel updatedHotel = new Hotel(testHotelId1, testHotelName1);
+		updatedHotel.setRooms(RoomType.SINGLE, numberOfRooms);
+		verify(hotelRepository).setRoom(existingHotel, numberOfRooms, RoomType.SINGLE);
+	}
+	
+	
+	
+	
 	
 	
 }
