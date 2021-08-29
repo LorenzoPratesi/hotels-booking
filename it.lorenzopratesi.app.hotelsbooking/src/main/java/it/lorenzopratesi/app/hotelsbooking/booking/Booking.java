@@ -65,11 +65,12 @@ public class Booking {
 		return isBooked;
 	}
 
-	public boolean overlaps(LocalDate checkIn, LocalDate checkOut) {
-		if (checkOut.isBefore(this.checkIn) || checkOut.isEqual(this.checkIn)) {
+	public boolean overlaps(Booking booking) {
+		
+		if (booking.getCheckOut().isBefore(this.checkIn) || booking.getCheckOut().isEqual(this.checkIn)) {
 			return false;
 		}
-		if (checkIn.isEqual(this.checkOut) || checkIn.isAfter(this.checkOut)) {
+		if (booking.getCheckIn().isEqual(this.checkOut) || booking.getCheckIn().isAfter(this.checkOut)) {
 			return false;
 		}
 		return true;

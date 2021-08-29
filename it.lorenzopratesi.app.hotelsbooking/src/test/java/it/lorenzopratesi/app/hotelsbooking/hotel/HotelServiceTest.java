@@ -1,5 +1,7 @@
 package it.lorenzopratesi.app.hotelsbooking.hotel;
 
+import static org.assertj.core.api.Assertions.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -16,8 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class HotelServiceTest {
 
 	private static final String testHotelId1 = "1";
-	private static final String testHotelId2 = "2";
 	private static final String testHotelName1 = "test_hotel_1";
+	
 	private static final String testHotelName2 = "test_hotel_2";
 
 	@Mock
@@ -30,7 +32,14 @@ class HotelServiceTest {
 	void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
+	@Test
+	void testFindHotelByIdShouldReturnTheCorrectHotel() {
+		Hotel hotel = new Hotel(testHotelId1, testHotelName1);
+		when(hotelRepository.findHotelById(hotel.getId())).thenReturn(hotel);
+		assertThat(hotelService.findHotelBy(hotel.getId())).isEqualTo(hotel);
+		verify(hotelRepository).findHotelById(hotel.getId());
+	}
 
 	@Test
 	void testAddHotelWhenHotelWithSameIdDoesNotAlreadyExist() {
@@ -63,7 +72,7 @@ class HotelServiceTest {
 		assertEquals("Hotel with id 1 does not exists.", e.getMessage());
 		verify(hotelRepository, Mockito.times(0)).setRoom(hotel, numberOfRooms, RoomType.SINGLE);
 	}
-	
+
 	@Test
 	void testSetRoomShouldInsertOneRoomOfTypeSingle() {
 		Hotel existingHotel = new Hotel(testHotelId1, testHotelName1);
@@ -72,32 +81,27 @@ class HotelServiceTest {
 
 		int numberOfRooms = 1;
 		hotelService.setRoom(hotel, numberOfRooms, RoomType.SINGLE);
-		
+
 		Hotel updatedHotel = new Hotel(testHotelId1, testHotelName1);
 		updatedHotel.setRooms(RoomType.SINGLE, numberOfRooms);
 		verify(hotelRepository).setRoom(existingHotel, numberOfRooms, RoomType.SINGLE);
 	}
-	
+
 	@Test
 	void testSetRoomShouldUpdateOneRoomOfTypeSingle() {
 		Hotel existingHotel = new Hotel(testHotelId1, testHotelName1);
 		existingHotel.setRooms(RoomType.SINGLE, 1);
-		
+
 		Hotel hotel = new Hotel(testHotelId1, testHotelName1);
 		hotel.setRooms(RoomType.SINGLE, 1);
 		when(hotelRepository.findHotelById(hotel.getId())).thenReturn(existingHotel);
 
 		int numberOfRooms = 2;
 		hotelService.setRoom(hotel, numberOfRooms, RoomType.SINGLE);
-		
+
 		Hotel updatedHotel = new Hotel(testHotelId1, testHotelName1);
 		updatedHotel.setRooms(RoomType.SINGLE, numberOfRooms);
 		verify(hotelRepository).setRoom(existingHotel, numberOfRooms, RoomType.SINGLE);
 	}
-	
-	
-	
-	
-	
-	
+
 }

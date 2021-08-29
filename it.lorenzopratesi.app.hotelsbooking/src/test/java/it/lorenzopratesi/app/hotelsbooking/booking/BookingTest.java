@@ -17,7 +17,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(2, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(2, DAYS));
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isTrue();
+		assertThat(booking1.overlaps(booking2)).isTrue();
 	}
 	
 	@Test
@@ -25,7 +25,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(2, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckIn().minus(1, DAYS), booking1.getCheckIn().plus(1, DAYS));
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isTrue();
+		assertThat(booking1.overlaps(booking2)).isTrue();
 	}
 	
 	@Test
@@ -33,7 +33,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(2, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckIn().minus(1, DAYS), booking1.getCheckOut());
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isTrue();
+		assertThat(booking1.overlaps(booking2)).isTrue();
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(1, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckIn().minus(1, DAYS), booking1.getCheckOut().plus(1, DAYS));
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isTrue();
+		assertThat(booking1.overlaps(booking2)).isTrue();
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(2, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckIn(), booking1.getCheckOut().plus(1, DAYS));
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isTrue();
+		assertThat(booking1.overlaps(booking2)).isTrue();
 	}
 	
 	@Test
@@ -57,7 +57,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(2, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckIn().plus(1, DAYS), booking1.getCheckOut().plus(1, DAYS));
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isTrue();
+		assertThat(booking1.overlaps(booking2)).isTrue();
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(1, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckIn().minus(1, DAYS), booking1.getCheckIn());
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isFalse();
+		assertThat(booking1.overlaps(booking2)).isFalse();
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ class BookingTest {
 		Booking booking1 = new Booking("1", "1", RoomType.SINGLE, EPOCH, EPOCH.plus(1, DAYS));
 		Booking booking2 = new Booking("1", "1", RoomType.SINGLE, booking1.getCheckOut(), booking1.getCheckOut().plus(1, DAYS));
 
-		assertThat(booking1.overlaps(booking2.getCheckIn(), booking2.getCheckOut())).isFalse();
+		assertThat(booking1.overlaps(booking2)).isFalse();
 	}
 
 }

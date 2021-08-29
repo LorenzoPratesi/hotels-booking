@@ -2,8 +2,6 @@ package it.lorenzopratesi.app.hotelsbooking.booking;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import it.lorenzopratesi.app.hotelsbooking.helpers.DatesValidator;
 import it.lorenzopratesi.app.hotelsbooking.hotel.Hotel;
 import it.lorenzopratesi.app.hotelsbooking.hotel.HotelService;
@@ -48,7 +46,7 @@ public class BookingService {
 
 		List<Booking> overlappingBookings = bookingRepository.findExistingBookingsFor(hotelId, roomType)
 				.stream()
-				.filter(b -> b.overlaps(checkIn, checkOut))
+				.filter(b -> b.overlaps(booking))
 				.collect(toList());
 		
 		if (overlappingBookings.size() == roomsOfType) {

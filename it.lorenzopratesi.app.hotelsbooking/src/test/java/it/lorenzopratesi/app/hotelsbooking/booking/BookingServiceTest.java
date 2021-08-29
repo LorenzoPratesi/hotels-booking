@@ -53,6 +53,7 @@ class BookingServiceTest {
 		checkIn = EPOCH;
 		checkOut = EPOCH.plus(1, DAYS);
 		hotel = new Hotel("1", "HotelName");
+		employee = new Employee("emp_1");
 
 		when(datesValidator.validate(checkIn, checkOut)).thenReturn(true);
 	}
@@ -61,7 +62,7 @@ class BookingServiceTest {
 	void testBookShouldReturnsBookingFailureOfIncorrectDatesWhenValidatorSaysSo() {
 		when(datesValidator.validate(checkIn, checkOut)).thenReturn(false);
 
-		Booking bookingResult = bookingService.book(null, hotel.getId(), null, checkIn, checkOut);
+		Booking bookingResult = createBookingFor(employee, hotel, null, checkIn, checkOut);
 
 		assertThat(bookingResult.isBooked()).isFalse();
 		assertThat(bookingResult.getReason()).isEqualTo(BAD_DATES);
@@ -71,7 +72,7 @@ class BookingServiceTest {
 	void testReturnsBookingFailureIfHotelDoesNotExist() {
 		when(hotelService.findHotelBy(hotel.getId())).thenReturn(null);
 
-		Booking bookingResult = bookingService.book(null, hotel.getId(), null, checkIn, checkOut);
+		Booking bookingResult = createBookingFor(employee, hotel, null, checkIn, checkOut);
 
 		assertThat(bookingResult.isBooked()).isFalse();
 		assertThat(bookingResult.getReason()).isEqualTo(UNKNOWN_HOTEL);
@@ -79,9 +80,11 @@ class BookingServiceTest {
 
 	@Test
 	void testBookShouldReturnsBookingFailureOfUnavailableRoomTypeWhenHotelDoesNotHaveIt() {
+		RoomType roomType = RoomType.SINGLE;
+
 		when(hotelService.findHotelBy(hotel.getId())).thenReturn(hotel);
 
-		Booking bookingResult = bookingService.book(null, hotel.getId(), RoomType.SINGLE, checkIn, checkOut);
+		Booking bookingResult = createBookingFor(employee, hotel, roomType, checkIn, checkOut);
 
 		assertThat(bookingResult.isBooked()).isFalse();
 		assertThat(bookingResult.getReason()).isEqualTo(UNAVAILABLE_ROOM_TYPE);
@@ -93,8 +96,8 @@ class BookingServiceTest {
 		hotel.setRooms(roomType, 1);
 
 		when(hotelService.findHotelBy(hotel.getId())).thenReturn(hotel);
-		when(bookingPolicyService.isBookingAllowed(null, roomType)).thenReturn(false);
-		Booking bookingResult = bookingService.book(null, hotel.getId(), roomType, checkIn, checkOut);
+		when(bookingPolicyService.isBookingAllowed(employee.getId(), roomType)).thenReturn(false);
+		Booking bookingResult = bookingService.book(employee.getId(), hotel.getId(), roomType, checkIn, checkOut);
 
 		assertThat(bookingResult.isBooked()).isFalse();
 		assertThat(bookingResult.getReason()).isEqualTo(Booking.Reason.BOOKING_DISALLOWED_BY_POLICY);
@@ -106,11 +109,11 @@ class BookingServiceTest {
 		hotel.setRooms(roomType, 1);
 
 		when(hotelService.findHotelBy(hotel.getId())).thenReturn(hotel);
-		when(bookingPolicyService.isBookingAllowed(null, roomType)).thenReturn(true);
+		when(bookingPolicyService.isBookingAllowed(employee.getId(), roomType)).thenReturn(true);
 		when(bookingRepository.findExistingBookingsFor(hotel.getId(), roomType))
-				.thenReturn(asList(new Booking(null, null, roomType, checkIn, checkOut)));
+				.thenReturn(asList(new Booking(employee.getId(), hotel.getId(), roomType, checkIn, checkOut)));
 
-		Booking bookingResult = bookingService.book(null, hotel.getId(), roomType, checkIn, checkOut);
+		Booking bookingResult = createBookingFor(employee, hotel, roomType, checkIn, checkOut);
 
 		assertThat(bookingResult.isBooked()).isFalse();
 		assertThat(bookingResult.getReason()).isEqualTo(NO_MORE_ROOMS_AVAILABLE_ON_GIVEN_DATES);
@@ -132,7 +135,43 @@ class BookingServiceTest {
 		verify(bookingRepository).save(bookingResult);
 
 	}
-	
 
+	@Test
+	void testBookShouldReturnsBookingSuccessAndSavesBookingWhenDatesAreNotOverlapping() {
+		RoomType roomType = RoomType.SINGLE;
+		hotel.setRooms(roomType, 1);
+
+		when(hotelService.findHotelBy(hotel.getId())).thenReturn(hotel);
+		when(bookingPolicyService.isBookingAllowed(employee.getId(), roomType)).thenReturn(true);
+		when(bookingRepository.findExistingBookingsFor(hotel.getId(), roomType))
+				.thenReturn(asList(new Booking(employee.getId(), hotel.getId(), roomType, checkOut.plus(1, DAYS), checkOut.plus(2, DAYS))));
+
+		Booking bookingResult = createBookingFor(employee, hotel, roomType, checkIn, checkOut);
+
+		assertThat(bookingResult.isBooked()).isTrue();
+		assertThat(bookingResult.getReason()).isEqualTo(SUCCESS);
+		verify(bookingRepository).save(bookingResult);
+	}
+
+	@Test
+	void testBookShouldReturnsBookingSuccessAndSavesBookingWhenEnoughRoomsEvenIfDatesOverlap() {
+		RoomType roomType = RoomType.SINGLE;
+		hotel.setRooms(roomType, 2);
+
+		when(hotelService.findHotelBy(hotel.getId())).thenReturn(hotel);
+		when(bookingPolicyService.isBookingAllowed(employee.getId(), roomType)).thenReturn(true);
+		when(bookingRepository.findExistingBookingsFor(hotel.getId(), roomType))
+				.thenReturn(asList(new Booking(employee.getId(), hotel.getId(), roomType, checkIn, checkOut)));
+
+		Booking bookingResult = createBookingFor(employee, hotel, roomType, checkIn, checkOut);
+
+		assertThat(bookingResult.isBooked()).isTrue();
+		assertThat(bookingResult.getReason()).isEqualTo(SUCCESS);
+		verify(bookingRepository).save(bookingResult);
+	}
+
+	private Booking createBookingFor(Employee employee, Hotel hotel, RoomType roomType, LocalDate checkIn, LocalDate checkOut) {
+		return bookingService.book(employee.getId(), hotel.getId(), roomType, checkIn, checkOut);
+	}
 
 }

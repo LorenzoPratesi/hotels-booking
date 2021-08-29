@@ -1,6 +1,5 @@
 package it.lorenzopratesi.app.hotelsbooking.company;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
