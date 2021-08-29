@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.hotel;
+package it.lorenzopratesi.app.hotelsbooking.model;
 
 import java.util.HashMap;
 import java.util.Map;

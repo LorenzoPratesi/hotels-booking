@@ -1,8 +1,8 @@
-package it.lorenzopratesi.app.hotelsbooking.booking;
+package it.lorenzopratesi.app.hotelsbooking.controller;
 
 import java.time.LocalDate;
 import static java.util.Arrays.*;
-
+import static it.lorenzopratesi.app.hotelsbooking.model.Booking.Reason.*;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -13,16 +13,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
-import it.lorenzopratesi.app.hotelsbooking.helpers.DatesValidator;
-import it.lorenzopratesi.app.hotelsbooking.hotel.Hotel;
-import it.lorenzopratesi.app.hotelsbooking.hotel.HotelService;
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
-import it.lorenzopratesi.app.hotelsbooking.policy.BookingPolicyService;
+import it.lorenzopratesi.app.hotelsbooking.model.Booking;
+import it.lorenzopratesi.app.hotelsbooking.model.Employee;
+import it.lorenzopratesi.app.hotelsbooking.model.Hotel;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.repository.BookingRepository;
+import it.lorenzopratesi.app.hotelsbooking.validation.DatesValidator;
 
 import static java.util.Collections.emptyList;
-
-import static it.lorenzopratesi.app.hotelsbooking.booking.Booking.Reason.*;
 
 class BookingServiceTest {
 

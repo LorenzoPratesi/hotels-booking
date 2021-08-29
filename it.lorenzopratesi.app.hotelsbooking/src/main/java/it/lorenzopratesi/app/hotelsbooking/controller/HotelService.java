@@ -1,4 +1,8 @@
-package it.lorenzopratesi.app.hotelsbooking.hotel;
+package it.lorenzopratesi.app.hotelsbooking.controller;
+
+import it.lorenzopratesi.app.hotelsbooking.model.Hotel;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.repository.HotelRepository;
 
 public class HotelService {
 

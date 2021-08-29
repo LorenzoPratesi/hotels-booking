@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.company;
+package it.lorenzopratesi.app.hotelsbooking.controller;
 
 import static org.mockito.Mockito.*;
 
@@ -10,9 +10,11 @@ import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import it.lorenzopratesi.app.hotelsbooking.booking.BookingRepository;
-import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
-import it.lorenzopratesi.app.hotelsbooking.policy.BookingPolicyRepository;
+import it.lorenzopratesi.app.hotelsbooking.model.Company;
+import it.lorenzopratesi.app.hotelsbooking.model.Employee;
+import it.lorenzopratesi.app.hotelsbooking.repository.BookingPolicyRepository;
+import it.lorenzopratesi.app.hotelsbooking.repository.BookingRepository;
+import it.lorenzopratesi.app.hotelsbooking.repository.CompanyRepository;
 
 class CompanyServiceTest {
 

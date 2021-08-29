@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.booking;
+package it.lorenzopratesi.app.hotelsbooking.model;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.assertj.core.api.Assertions.*;
@@ -6,8 +6,6 @@ import static org.assertj.core.api.Assertions.*;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
 
 class BookingTest {
 	private static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);

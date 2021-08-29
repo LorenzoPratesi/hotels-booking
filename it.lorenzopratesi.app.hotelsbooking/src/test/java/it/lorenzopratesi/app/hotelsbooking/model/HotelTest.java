@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.hotel;
+package it.lorenzopratesi.app.hotelsbooking.model;
 
 import static org.assertj.core.api.Assertions.*;
 

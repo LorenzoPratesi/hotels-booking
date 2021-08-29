@@ -107,7 +107,6 @@
 					<configuration>
 						<excludes>
 							<exclude>**/model/*.*</exclude>
-							<exclude>**/app/ApplicationSwing.java</exclude>
 						</excludes>
 					</configuration>
 					<executions>

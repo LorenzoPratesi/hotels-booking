@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.helpers;
+package it.lorenzopratesi.app.hotelsbooking.validation;
 
 import java.time.Duration;
 import java.time.LocalDate;

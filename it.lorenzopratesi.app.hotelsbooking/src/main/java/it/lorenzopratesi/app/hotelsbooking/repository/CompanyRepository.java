@@ -1,6 +1,7 @@
-package it.lorenzopratesi.app.hotelsbooking.company;
+package it.lorenzopratesi.app.hotelsbooking.repository;
 
-import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
+import it.lorenzopratesi.app.hotelsbooking.model.Company;
+import it.lorenzopratesi.app.hotelsbooking.model.Employee;
 
 public interface CompanyRepository {
 

@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.hotel;
+package it.lorenzopratesi.app.hotelsbooking.controller;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -13,6 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import it.lorenzopratesi.app.hotelsbooking.model.Hotel;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.repository.HotelRepository;
 
 @ExtendWith(MockitoExtension.class)
 class HotelServiceTest {

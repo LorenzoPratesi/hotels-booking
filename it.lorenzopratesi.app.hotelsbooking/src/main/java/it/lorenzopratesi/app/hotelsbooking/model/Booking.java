@@ -1,8 +1,6 @@
-package it.lorenzopratesi.app.hotelsbooking.booking;
+package it.lorenzopratesi.app.hotelsbooking.model;
 
 import java.time.LocalDate;
-
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
 
 public class Booking {
 

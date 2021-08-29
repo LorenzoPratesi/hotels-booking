@@ -1,15 +1,16 @@
-package it.lorenzopratesi.app.hotelsbooking.booking;
+package it.lorenzopratesi.app.hotelsbooking.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import it.lorenzopratesi.app.hotelsbooking.helpers.DatesValidator;
-import it.lorenzopratesi.app.hotelsbooking.hotel.Hotel;
-import it.lorenzopratesi.app.hotelsbooking.hotel.HotelService;
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
-import it.lorenzopratesi.app.hotelsbooking.policy.BookingPolicyService;
 
+import it.lorenzopratesi.app.hotelsbooking.model.Booking;
+import it.lorenzopratesi.app.hotelsbooking.model.Hotel;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.repository.BookingRepository;
+import it.lorenzopratesi.app.hotelsbooking.validation.DatesValidator;
+
+import static it.lorenzopratesi.app.hotelsbooking.model.Booking.Reason.*;
 import static java.util.stream.Collectors.*;
-import static it.lorenzopratesi.app.hotelsbooking.booking.Booking.Reason.*;
 
 public class BookingService {
 

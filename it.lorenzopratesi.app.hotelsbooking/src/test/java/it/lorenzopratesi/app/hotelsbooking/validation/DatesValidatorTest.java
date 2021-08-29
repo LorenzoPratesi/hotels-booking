@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.helpers;
+package it.lorenzopratesi.app.hotelsbooking.validation;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.assertj.core.api.Assertions.*;

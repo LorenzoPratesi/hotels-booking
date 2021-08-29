@@ -1,9 +1,10 @@
-package it.lorenzopratesi.app.hotelsbooking.booking;
+package it.lorenzopratesi.app.hotelsbooking.repository;
 
 import java.util.List;
 
-import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.model.Booking;
+import it.lorenzopratesi.app.hotelsbooking.model.Employee;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
 
 public interface BookingRepository {
 

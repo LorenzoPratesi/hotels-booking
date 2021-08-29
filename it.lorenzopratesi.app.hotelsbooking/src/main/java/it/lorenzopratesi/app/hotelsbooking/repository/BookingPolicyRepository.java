@@ -1,10 +1,10 @@
-package it.lorenzopratesi.app.hotelsbooking.policy;
+package it.lorenzopratesi.app.hotelsbooking.repository;
 
 import java.util.List;
 
-import it.lorenzopratesi.app.hotelsbooking.company.Company;
-import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.model.Company;
+import it.lorenzopratesi.app.hotelsbooking.model.Employee;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
 
 public interface BookingPolicyRepository {
 

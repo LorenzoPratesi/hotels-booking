@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.policy;
+package it.lorenzopratesi.app.hotelsbooking.controller;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -12,10 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import it.lorenzopratesi.app.hotelsbooking.company.Company;
-import it.lorenzopratesi.app.hotelsbooking.company.CompanyRepository;
-import it.lorenzopratesi.app.hotelsbooking.employee.Employee;
-import it.lorenzopratesi.app.hotelsbooking.hotel.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.model.Company;
+import it.lorenzopratesi.app.hotelsbooking.model.Employee;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
+import it.lorenzopratesi.app.hotelsbooking.repository.BookingPolicyRepository;
+import it.lorenzopratesi.app.hotelsbooking.repository.CompanyRepository;
 
 class BookingPolicyServiceTest {
 	private static final Company A_COMPANY = new Company("1");

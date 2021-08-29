@@ -1,4 +1,4 @@
-package it.lorenzopratesi.app.hotelsbooking.company;
+package it.lorenzopratesi.app.hotelsbooking.model;
 
 public class Company {
 

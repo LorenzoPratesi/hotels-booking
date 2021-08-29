@@ -1,4 +1,7 @@
-package it.lorenzopratesi.app.hotelsbooking.hotel;
+package it.lorenzopratesi.app.hotelsbooking.repository;
+
+import it.lorenzopratesi.app.hotelsbooking.model.Hotel;
+import it.lorenzopratesi.app.hotelsbooking.model.RoomType;
 
 public interface HotelRepository {
 
