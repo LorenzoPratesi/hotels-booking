@@ -5,19 +5,16 @@ on:
   pull_request:
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
+      # test against several Java versions:
       matrix:
-        # test against several OSes:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        # test against several Java versions:
-        java: [ 8 ]
-        # includes JDK 11 on Linux
         include:
-        - os: ubuntu-latest
-          java: 11
+          - java: 8
+            additional-maven-args: "-Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report"
+          - java: 11
 
-    name: Build with Java ${{ matrix.java }} on ${{ matrix.os }}
+    name: Build with Java ${{ matrix.java }} on Linux
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK ${{ matrix.java }}
@@ -30,15 +27,12 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2-
-        
-        
     - name: Build with Maven
       run: >
         mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml
-        clean verify -Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
+        clean verify ${{ matrix.additional-maven-args }}
       env: 
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-    
     - name: Generate JUnit Report
       run: >
         mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml
