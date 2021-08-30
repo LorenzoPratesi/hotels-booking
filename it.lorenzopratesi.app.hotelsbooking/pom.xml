@@ -17,6 +17,7 @@
 		<!-- dependencies versions -->
 		<junit.version>5.7.0</junit.version>
 		<mockito.version>3.3.3</mockito.version>
+		<pitest.version>1.5.2</pitest.version>
 	</properties>
 
 
@@ -77,7 +78,7 @@
 				<plugin>
 					<groupId>org.pitest</groupId>
 					<artifactId>pitest-maven</artifactId>
-					<version>1.5.2</version>
+					<version>${pitest.version}</version>
 					<dependencies>
 						<dependency>
 							<groupId>org.pitest</groupId>
@@ -87,16 +88,19 @@
 					</dependencies>
 					<configuration>
 						<targetClasses>
-							<!-- excludes testing.example.bank.app.Main -->
-							<!-- <param>testing.example.bank.Bank*</param> -->
+							<param>it.lorenzopratesi.app.hotelsbooking.controller.*</param>
+							<param>it.lorenzopratesi.app.hotelsbooking.repository.*</param>
+							<param>it.lorenzopratesi.app.hotelsbooking.validation.*</param>
 						</targetClasses>
 						<targetTests>
-							<param>testing.example.bank.*</param>
+							<param>it.lorenzopratesi.app.hotelsbooking.controller*</param>
+							<param>it.lorenzopratesi.app.hotelsbooking.repository.*</param>
+							<param>it.lorenzopratesi.app.hotelsbooking.validation.*</param>
 						</targetTests>
 						<mutators>
 							<mutator>DEFAULTS</mutator>
 						</mutators>
-						<mutationThreshold>80</mutationThreshold>
+						<mutationThreshold>100</mutationThreshold>
 					</configuration>
 				</plugin>
 

@@ -12,6 +12,8 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         # test against several Java versions:
         java: [ 8 ]
+        
+        additional-maven-args: "-Pjacoco"
         # includes JDK 11 on Linux
         include:
         - os: ubuntu-latest
@@ -30,5 +32,20 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2-
+        
+        
     - name: Build with Maven
-      run: mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml clean verify
+      run: >
+        mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml
+        clean verify ${{ matrix.additional-maven-args }}
+    - name: Generate JUnit Report
+      run: >
+        mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml
+        surefire-report:report-only site:site -DgenerateReports=false
+      if: ${{ always() }}
+    - name: Archive JUnit Report
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: surefire-report-jdk-${{ matrix.java }}
+        path: '**/target/site'
