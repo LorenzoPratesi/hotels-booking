@@ -107,7 +107,7 @@
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.8.5</version>
+					<version>0.8.6</version>
 					<configuration>
 						<excludes>
 							<exclude>**/model/*.*</exclude>
@@ -136,6 +136,12 @@
 					<groupId>org.eluder.coveralls</groupId>
 					<artifactId>coveralls-maven-plugin</artifactId>
 					<version>4.3.0</version>
+					<configuration>
+						<jacocoReports>
+							<jacocoReport>${project.reporting.outputDirectory}/jacoco/jacoco.xml</jacocoReport>
+						</jacocoReports>
+						<failOnServiceError>false</failOnServiceError>
+					</configuration>
 					<dependencies>
 						<!-- This is required when using JDK 9 or higher since javax.xml.bind 
 							has been removed from the JDK -->
