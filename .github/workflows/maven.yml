@@ -12,8 +12,6 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         # test against several Java versions:
         java: [ 8 ]
-        
-        additional-maven-args: "-Pjacoco"
         # includes JDK 11 on Linux
         include:
         - os: ubuntu-latest
@@ -37,7 +35,7 @@ jobs:
     - name: Build with Maven
       run: >
         mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml
-        clean verify ${{ matrix.additional-maven-args }}
+        clean verify "-Pjacoco"
     - name: Generate JUnit Report
       run: >
         mvn -f it.lorenzopratesi.app.hotelsbooking/pom.xml
